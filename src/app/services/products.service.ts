@@ -9,13 +9,13 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class ProductsService {
 
-  private readonly http = inject(HttpClient)
+   private readonly http = inject(HttpClient);
 
-  public products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+   public products: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
+   getProducts(): void {
+     this.http.get<Product[]>(API_URL + 'products').subscribe(product => this.products.next(product));
+   }
 
-  public getProducts(): void {
-    this.http.get<Product[]>(API_URL + "products").subscribe(products => this.products.next(products));
-  }
 
 }

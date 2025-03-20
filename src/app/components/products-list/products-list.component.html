@@ -1,4 +1,12 @@
-<ng-container *ngFor="let product of products">
-  <pre>{{product | json}}</pre>
+<h1 class="classR">Продукт лист родительский</h1>
+<div class="list">
+<ng-container *ngFor="let product of products$ | async">
+
+<app-products-card
+   [product]="product">
+ </app-products-card>
+
 </ng-container>
+</div>
+
 
