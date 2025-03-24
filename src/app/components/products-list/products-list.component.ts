@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ProductsService} from '../../services/products.service';
-import {BehaviorSubject} from 'rxjs';
 import {Product} from '../../models/productModel';
 import {ProductsCardComponent} from '../products-card/products-card.component';
 import {AsyncPipe, NgForOf} from '@angular/common';
@@ -19,10 +18,14 @@ export class ProductsListComponent implements OnInit {
 
   private readonly productsService = inject(ProductsService)
 
-  products$ = this.productsService.products
-
+  products$ = this.productsService.products$
 
   ngOnInit() {
     this.productsService.getProducts()
   }
+
+  deleteProduct(product: Product) {
+   this.productsService.deleteProduct(product)
+  }
+
 }

@@ -3,7 +3,8 @@
 <ng-container *ngFor="let product of products$ | async">
 
 <app-products-card
-   [product]="product">
+   [product]="product"
+(productDelete)="deleteProduct($event)">
  </app-products-card>
 
 </ng-container>
