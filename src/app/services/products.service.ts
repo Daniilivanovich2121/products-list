@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {API_URL} from '../models/api-url';
-import {Product} from '../models/productModel';
+import {CreateProductModels, Product} from '../models/productModel';
 import {BehaviorSubject, tap} from 'rxjs';
 
 @Injectable({
@@ -30,6 +30,13 @@ export class ProductsService {
      this.http.delete(API_URL + `products/${product.id}`).pipe(
        tap(() => this.productsSubject.next(products))
      ).subscribe()
+   }
+   createProduct(newProduct: CreateProductModels) {
+     this.http.post<Product>(API_URL + 'products', newProduct).subscribe((product: Product) => {
+       this.productsSubject.next([...this.productsSubject.value, product])
+
+     })
+
    }
 
 }
