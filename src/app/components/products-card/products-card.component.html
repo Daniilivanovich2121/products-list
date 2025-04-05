@@ -5,5 +5,9 @@
   {{product.price}}
   {{product.slug}}
     <button (click)="deleteProduct(product)">Delete</button>
+    <button mat-icon-button color="primary" (click)="editProduct(product)">
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
+
 </div>

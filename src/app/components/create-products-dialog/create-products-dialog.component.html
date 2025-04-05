@@ -1,0 +1,58 @@
+<mat-dialog-content>
+  <form class="example-form"
+        [formGroup]="createProductForm">
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>название</mat-label>
+        <input type="text" matInput formControlName="title"
+               placeholder="название">
+        @if (createProductForm.controls['title'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>описание</mat-label>
+        <input type="text" matInput formControlName="description"
+               placeholder="описание">
+        @if (createProductForm.controls['description'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>цена</mat-label>
+        <input type="numder" matInput formControlName="price"
+               placeholder="цена">
+        @if (createProductForm.controls['price'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>фото товара</mat-label>
+        <input type="text" matInput formControlName="images"
+               placeholder="картинка">
+        @if (createProductForm.controls['images'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>категория</mat-label>
+      <input type="number" matInput formControlName="categoryId"
+             placeholder="категория">
+      @if (createProductForm.controls['categoryId'].hasError('required')) {
+        <mat-error>это поле обязательно</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">закрыть</button>
+  <button mat-button (click)="onSubmit()" [disabled]="!createProductForm.valid" >создать</button>
+</mat-dialog-actions>

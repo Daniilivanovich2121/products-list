@@ -33,13 +33,23 @@ export class ProductsListComponent implements OnInit {
    this.productsService.deleteProduct(product)
   }
 
-  openDialog() {
+  openDialog(editableProduct?: Product, isEdit?: boolean) {
+
     const dialogRef = this.dialog.open(CreateProductsDialogComponent,{
-      width: '500px', height: '700px'
+      width: '500px', height: '700px', data: editableProduct
     })
     dialogRef.afterClosed().subscribe((result: CreateProductModels) => {
-     this.productsService.createProduct(result)
+      if(result) {
+        if(isEdit) {
+          this.productsService.updateProduct(result as Product, editableProduct?.id as number)
+        }
+        else {
+          this.productsService.createProduct(result)
+        }
+      }
     })
   }
-
+  editProduct(editableProduct: Product) {
+    this.openDialog(editableProduct, true)
+  }
 }

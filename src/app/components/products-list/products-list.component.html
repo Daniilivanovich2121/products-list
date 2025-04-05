@@ -1,23 +1,13 @@
-<button mat-raised-button (click)="openDialog()">добавить продукт</button>
-
-
-
-
-
-
-
-
+<button mat-raised-button (click)="openDialog()">Добавить продукт</button>
 
 <h1 class="classR">Продукт лист родительский</h1>
 <div class="list">
-<ng-container *ngFor="let product of products$ | async">
-
-<app-products-card
-   [product]="product"
-(productDelete)="deleteProduct($event)">
- </app-products-card>
-
-</ng-container>
+  <ng-container *ngFor="let product of products$ | async">
+    <app-products-card
+      [product]="product"
+      (productDelete)="deleteProduct($event)"
+      (productEdit)="editProduct($event)"
+    >
+    </app-products-card>
+  </ng-container>
 </div>
-
-

@@ -9,34 +9,43 @@ import {BehaviorSubject, tap} from 'rxjs';
 })
 export class ProductsService {
 
-   private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
-   private productsSubject: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
+  private productsSubject: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);
 
-   public products$ = this.productsSubject.asObservable();
+  public products$ = this.productsSubject.asObservable();
 
-   getProducts(): void {
-     this.http.get<Product[]>(API_URL + 'products').subscribe(product => this.productsSubject.next(product));
-   }
+  getProducts(): void {
+    this.http.get<Product[]>(API_URL + 'products').subscribe(product => this.productsSubject.next(product));
+  }
 
-   deleteProduct(product: Product) {
-   //  this.http.delete(API_URL + `products/${product.id}`).subscribe(() => this.getProducts() ) 1 способ
+  deleteProduct(product: Product) {
+    //  this.http.delete(API_URL + `products/${product.id}`).subscribe(() => this.getProducts() ) 1 способ
 
     // const products = this.products.value.filter(v => v.id !== product.id);
     // this.http.delete(API_URL + `products/${product.id}`).subscribe(() => this.products.next(products) ) 2 способ
 
-     const products = this.productsSubject.value.filter(v => v.id !== product.id)
+    const products = this.productsSubject.value.filter(v => v.id !== product.id)
 
-     this.http.delete(API_URL + `products/${product.id}`).pipe(
-       tap(() => this.productsSubject.next(products))
-     ).subscribe()
-   }
-   createProduct(newProduct: CreateProductModels) {
-     this.http.post<Product>(API_URL + 'products', newProduct).subscribe((product: Product) => {
-       this.productsSubject.next([...this.productsSubject.value, product])
+    this.http.delete(API_URL + `products/${product.id}`).pipe(
+      tap(() => this.productsSubject.next(products))
+    ).subscribe()
+  }
 
-     })
+  createProduct(newProduct: CreateProductModels) {
+    this.http.post<Product>(API_URL + 'products', newProduct).subscribe((product: Product) => {
+      this.productsSubject.next([...this.productsSubject.value, product])
 
-   }
+    })
+  }
 
+  updateProduct(updatedProduct: Product, id: number) {
+    this.http.put<Product>(API_URL + `products/${id}`, updatedProduct)
+      .subscribe((product) => {
+        const products = this.productsSubject.value.map(p =>
+          p.id === product.id ? product : p
+        );
+        this.productsSubject.next(products);
+      });
+  }
 }
