@@ -1,13 +1,35 @@
-<p >products-card works!</p>
-<div class="content">
-  <div class="class">
-  <div class="title">Название {{product.title}}</div>
-  {{product.price}}
-  {{product.slug}}
-    <button (click)="deleteProduct(product)">Delete</button>
-    <button mat-icon-button color="primary" (click)="editProduct(product)">
-      <mat-icon>edit</mat-icon>
-    </button>
-  </div>
+<p class="vachtovar">Ваш товар</p>
+<mat-card class="product-card" appearance="outlined">
+  <div class="card-container">
+    <mat-card-header class="card-header">
+      <div mat-card-avatar class="header-image"></div>
+      <img mat-card-image [src]="product.images[0]" class="product-image">
+      <mat-card-title class="product-title">{{ product.title }}</mat-card-title>
+      <mat-card-subtitle class="product-price">{{ product.price | currency:'RUB':'symbol':'1.0-0' }}</mat-card-subtitle>
+    </mat-card-header>
 
-</div>
+    <mat-card-content class="card-content">
+      <div class="characteristics">
+        <strong>Характеристики:</strong>
+        <p>{{ product.slug }}</p>
+      </div>
+      <div class="description">
+        <strong>Описание:</strong>
+        <p>{{ product.description }}</p>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="card-actions">
+      <button mat-fab color="warn" (click)="deleteProduct(product)" class="delete-btn" matTooltip="Удалить">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="editProduct(product)" matTooltip="Редактировать">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" (click)="addToBasket(product)" class="add-to-cart-btn">
+        <mat-icon>add_shopping_cart</mat-icon>
+        В корзину
+      </button>
+    </mat-card-actions>
+  </div>
+</mat-card>

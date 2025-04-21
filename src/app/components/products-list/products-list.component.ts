@@ -6,6 +6,8 @@ import {AsyncPipe, NgForOf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateProductsDialogComponent} from '../create-products-dialog/create-products-dialog.component';
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {BasketService} from '../../services/basket.service';
 
 @Component({
   selector: 'app-products-list',
@@ -13,7 +15,9 @@ import {CreateProductsDialogComponent} from '../create-products-dialog/create-pr
     ProductsCardComponent,
     NgForOf,
     AsyncPipe,
-    MatButton
+    MatButton,
+    RouterLink,
+    RouterOutlet
   ],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
@@ -22,6 +26,8 @@ export class ProductsListComponent implements OnInit {
 
   readonly dialog = inject(MatDialog);
   private readonly productsService = inject(ProductsService)
+  private readonly basketService = inject(BasketService);
+
 
   products$ = this.productsService.products$
 
@@ -32,6 +38,17 @@ export class ProductsListComponent implements OnInit {
   deleteProduct(product: Product) {
    this.productsService.deleteProduct(product)
   }
+
+  deleteAllProducts() {
+    this.productsService.deleteAllProducts()
+  }
+
+  onAddToBasket(product: Product): void {
+    this.basketService.addToBasket(product);
+    // Можно заменить на красивый toast/snackbar
+    console.log(`${product.name} добавлен в корзину`);
+  }
+
 
   openDialog(editableProduct?: Product, isEdit?: boolean) {
 

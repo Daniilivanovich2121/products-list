@@ -12,6 +12,7 @@ import {
 } from '@angular/material/dialog';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {Product} from '../../models/productModel';
+import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-create-products-dialog',
@@ -22,6 +23,9 @@ import {Product} from '../../models/productModel';
     MatDialogContent,
     MatDialogActions,
     MatButton,
+    MatSelect,
+    MatOption,
+
 
   ],
   templateUrl: './create-products-dialog.component.html',
@@ -37,7 +41,7 @@ export class CreateProductsDialogComponent {
     title: [ this.data?.title || "",Validators.required],
     description: [this.data?.description || '',Validators.required],
     price: [this.data?.price || 0, Validators.required,],
-    images: [this.data?.image || ["https://placehold.co/600x400"], Validators.required],
+    images: [this.data?.images || ["https://placehold.co/600x400"], Validators.required],
     categoryId: [this.data?.categoryId || 1, Validators.required],
   })
 

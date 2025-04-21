@@ -1,0 +1,11 @@
+<div class="basket-container">
+  <h2>Ваша корзина</h2>
+
+  <mat-card *ngFor="let item of basketService.basketItems$ | async" class="basket-item">
+    <mat-card-content>
+      <h3>{{ item.name }}</h3>
+      <p>Цена: {{ item.price | currency }}</p>
+      <p>Количество: {{ item.quantity || 1 }}</p>
+      <p>Итого: {{ (item.price * (item.quantity || 1)) | currency }}</p>
+    </mat-card-content>
+  </mat-card></div>

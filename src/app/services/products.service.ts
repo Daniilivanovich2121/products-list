@@ -19,6 +19,10 @@ export class ProductsService {
     this.http.get<Product[]>(API_URL + 'products').subscribe(product => this.productsSubject.next(product));
   }
 
+  getProductById(id: number): Product | undefined {
+    return this.productsSubject.value.find(product => product.id === id);
+  }
+
   deleteProduct(product: Product) {
     //  this.http.delete(API_URL + `products/${product.id}`).subscribe(() => this.getProducts() ) 1 способ
 
@@ -31,6 +35,19 @@ export class ProductsService {
       tap(() => this.productsSubject.next(products))
     ).subscribe()
   }
+
+  deleteAllProducts() {
+    const products = this.productsSubject.value;
+
+    // Удаляем каждый продукт по отдельности
+    products.forEach(product => {
+      this.http.delete(API_URL + `products/${product.id}`).subscribe();
+    });
+
+    // Очищаем локальное состояние сразу (оптимистичное обновление)
+    this.productsSubject.next([]);
+  }
+
 
   createProduct(newProduct: CreateProductModels) {
     this.http.post<Product>(API_URL + 'products', newProduct).subscribe((product: Product) => {
