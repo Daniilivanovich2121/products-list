@@ -17,6 +17,7 @@ import {
   MatCardTitle
 } from '@angular/material/card';
 import {BasketService} from '../../services/basket.service';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-products-card',
@@ -36,7 +37,8 @@ import {BasketService} from '../../services/basket.service';
     MatCardActions,
     MatCardTitle,
     MatCardSubtitle,
-    MatCardImage
+    MatCardImage,
+    MatTooltip,
   ],
   templateUrl: './products-card.component.html',
   styleUrl: './products-card.component.scss'

@@ -2,22 +2,37 @@ import {Component, inject, OnInit} from '@angular/core';
 import {ProductsService} from '../../services/products.service';
 import {CreateProductModels, Product} from '../../models/productModel';
 import {ProductsCardComponent} from '../products-card/products-card.component';
-import {AsyncPipe, NgForOf} from '@angular/common';
-import {MatButton} from '@angular/material/button';
+import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
+import {MatButton, MatFabButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateProductsDialogComponent} from '../create-products-dialog/create-products-dialog.component';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {BasketService} from '../../services/basket.service';
+import {async} from 'rxjs';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {MatProgressBar} from '@angular/material/progress-bar';
+import {MatDrawer, MatDrawerContainer, MatSidenavModule} from '@angular/material/sidenav';
+import {BasketProductsComponent} from '../basket-products/basket-products.component';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-products-list',
   imports: [
+    MatSidenavModule,
     ProductsCardComponent,
     NgForOf,
     AsyncPipe,
     MatButton,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    NgIf,
+    MatProgressSpinner,
+    MatProgressBar,
+    MatDrawerContainer,
+    MatDrawer,
+    BasketProductsComponent,
+    MatIcon,
+    MatFabButton
   ],
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
@@ -29,7 +44,7 @@ export class ProductsListComponent implements OnInit {
   private readonly basketService = inject(BasketService);
 
 
-  products$ = this.productsService.products$
+  state$ = this.productsService.state$
 
   ngOnInit() {
     this.productsService.getProducts()
@@ -69,4 +84,6 @@ export class ProductsListComponent implements OnInit {
   editProduct(editableProduct: Product) {
     this.openDialog(editableProduct, true)
   }
+
+  protected readonly async = async;
 }
