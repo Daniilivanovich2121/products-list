@@ -1,72 +1,84 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {ProductsService} from '../../services/products.service';
 import {CreateProductModels, Product} from '../../models/productModel';
 import {ProductsCardComponent} from '../products-card/products-card.component';
-import {AsyncPipe, NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {CreateProductsDialogComponent} from '../create-products-dialog/create-products-dialog.component';
-import {RouterLink, RouterOutlet} from '@angular/router';
 import {BasketService} from '../../services/basket.service';
+import {Store} from '@ngrx/store';
+import {createProduct, deleteProduct, editProduct, getProducts} from "../../store/products.action";
+import {selectProducts, selectProductsError, selectProductsStatus} from "../../store/products.selector";
+import {PushPipe} from "@ngrx/component";
+import {MatProgressBar} from "@angular/material/progress-bar";
 
 @Component({
-  selector: 'app-products-list',
-  imports: [
-    ProductsCardComponent,
-    NgForOf,
-    AsyncPipe,
-    MatButton,
-    RouterLink,
-    RouterOutlet
-  ],
-  templateUrl: './products-list.component.html',
-  styleUrl: './products-list.component.scss'
+    selector: 'app-products-list',
+    imports: [
+        ProductsCardComponent,
+        NgForOf,
+        MatButton,
+        PushPipe,
+        NgIf,
+        MatProgressBar
+    ],
+    templateUrl: './products-list.component.html',
+    styleUrl: './products-list.component.scss'
 })
 export class ProductsListComponent implements OnInit {
 
-  readonly dialog = inject(MatDialog);
-  private readonly productsService = inject(ProductsService)
-  private readonly basketService = inject(BasketService);
+    readonly dialog = inject(MatDialog);
+    private readonly basketService = inject(BasketService);
+    private readonly store = inject(Store);
+    public products$ = this.store.select(selectProducts)
+    public error$ = this.store.select(selectProductsError)
+    public isLoading$ = this.store.select(selectProductsStatus)
+
+    ngOnInit() {
+        this.init()
+    }
+
+    init() {
+        this.store.dispatch(getProducts())
+    }
+
+    deleteProduct(product: Product) {
+        this.store.dispatch(deleteProduct({id: product.id}))
+    }
+
+    deleteAllProducts() {
+    }
+
+    onAddToBasket(product: Product): void {
+        this.basketService.addToBasket(product);
+        // Можно заменить на красивый toast/snackbar
+        console.log(`${product.name} добавлен в корзину`);
+    }
 
 
-  products$ = this.productsService.products$
+    openDialog(editableProduct?: Product,) {
 
-  ngOnInit() {
-    this.productsService.getProducts()
-  }
+        const dialogRef = this.dialog.open(CreateProductsDialogComponent, {
+            width: '500px', height: '700px', data: editableProduct
+        })
+        dialogRef.afterClosed().subscribe((result: CreateProductModels ) => {
+            if (result) {
+                if (editableProduct) {
+                    const upProduct: Product = {
+                        ...editableProduct,
+                        ...result,
+                    }
+                    console.log(upProduct);
+                    this.store.dispatch(editProduct({product: upProduct}));
+                } else {
+                    console.log("else");
+                    this.store.dispatch(createProduct({product: result }))
+                }
+            }
+        })
+    }
 
-  deleteProduct(product: Product) {
-   this.productsService.deleteProduct(product)
-  }
-
-  deleteAllProducts() {
-    this.productsService.deleteAllProducts()
-  }
-
-  onAddToBasket(product: Product): void {
-    this.basketService.addToBasket(product);
-    // Можно заменить на красивый toast/snackbar
-    console.log(`${product.name} добавлен в корзину`);
-  }
-
-
-  openDialog(editableProduct?: Product, isEdit?: boolean) {
-
-    const dialogRef = this.dialog.open(CreateProductsDialogComponent,{
-      width: '500px', height: '700px', data: editableProduct
-    })
-    dialogRef.afterClosed().subscribe((result: CreateProductModels) => {
-      if(result) {
-        if(isEdit) {
-          this.productsService.updateProduct(result as Product, editableProduct?.id as number)
-        }
-        else {
-          this.productsService.createProduct(result)
-        }
-      }
-    })
-  }
-  editProduct(editableProduct: Product) {
-    this.openDialog(editableProduct, true)
-  }
+    editProduct(editableProduct: Product) {
+        this.openDialog(editableProduct)
+    }
 }

@@ -48,7 +48,6 @@ export class ProductsCardComponent  implements OnInit {
   @Output() productAddToBasket = new EventEmitter<Product>();
 
   ngOnInit() {
-    console.log(this.product);
   }
 
   public deleteProduct(product: Product) {
