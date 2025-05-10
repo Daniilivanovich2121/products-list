@@ -1,29 +1,11 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CreateProductModels, Product} from '../../models/productModel';
-import {ProductsCardComponent} from '../products-card/products-card.component';
-import {NgForOf, NgIf} from '@angular/common';
-import {MatButton} from '@angular/material/button';
-import {MatDialog} from '@angular/material/dialog';
-import {CreateProductsDialogComponent} from '../create-products-dialog/create-products-dialog.component';
-import {BasketService} from '../../services/basket.service';
-import {Store} from '@ngrx/store';
-import {createProduct, deleteProduct, editProduct, getProducts} from "../../store/products.action";
-import {selectProducts, selectProductsError, selectProductsStatus} from "../../store/products.selector";
-import {PushPipe} from "@ngrx/component";
-import {MatProgressBar} from "@angular/material/progress-bar";
 
 @Component({
-    selector: 'app-products-list',
-    imports: [
-        ProductsCardComponent,
-        NgForOf,
-        MatButton,
-        PushPipe,
-        NgIf,
-        MatProgressBar
-    ],
-    templateUrl: './products-list.component.html',
-    styleUrl: './products-list.component.scss'
+  selector: 'app-products-list',
+  imports: [
+
+  ],
+  templateUrl: './products-list.component.html',
+  styleUrl: './products-list.component.scss'
 })
 export class ProductsListComponent implements OnInit {
 

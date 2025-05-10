@@ -1,19 +1,49 @@
-.list{
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 30px;
-}
-.btnAlldel{
-  margin-left: 20px;
-}
-.classR {
-  display: flex;
-  justify-content: center;
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; /* Равные отступы по краям и между карточками */
+    padding: 0 30px;
+    gap: 20px; /* Отступ между карточками */
+    width: 100%;
+  }
 
-}
-.btn{
-  justify-content: center;
+  /* Стили для карточек */
+  .list .card {
+    flex: 1 1 200px; /* Гибкая ширина, но не меньше 200px */
+    max-width: 300px; /* Максимальная ширина карточки */
+    margin-bottom: 20px;
+  }
+
+  /* Остальные стили остаются без изменений */
+  .btnAlldel {
+    margin-left: 20px;
+  }
+
+  .classR {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  .bar {
+    width: 100%;
+    height: 4px;
+  }
+
+  .basket-toggle {
+    margin-left: 10px;
+  }
+.products-grid{
   display: flex;
+  flex-wrap: wrap;
+   /* Равные отступы по краям и между карточками */
+  padding: 0 30px;
+  gap: 20px; /* Отступ между карточками */
 }
+
+

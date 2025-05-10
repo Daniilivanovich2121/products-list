@@ -6,8 +6,5 @@ export const routes: Routes = [
     path: 'products',
     component: ProductsListComponent
   },
-  {
-    path: 'basket',
-    component: BasketProductsComponent
-  }
+
 ];

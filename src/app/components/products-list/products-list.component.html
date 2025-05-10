@@ -1,22 +1,41 @@
+<mat-drawer-container class="example-container" autosize>
+  <!-- Основной контент -->
+  <mat-drawer-content>
+    <div class="content-wrapper">
+      <h1 class="classR">Хранилище продуктов</h1>
+      <div class="btn">
+        <button mat-raised-button (click)="openDialog()">Добавить продукт</button>
+        <button mat-raised-button (click)="deleteAllProducts()" class="btnAlldel">Удалить все продукты</button>
+        <button mat-fab color="primary" class="basket-toggle" (click)="drawer.toggle()">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </div>
+      <div class="list">
+        @if (isLoading$ | ngrxPush ) {
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        } @else {
+          <div class="products-grid">
+            @for (product of products$ | ngrxPush; track product.id){
+              <app-products-card
+                [product]="product"
+                (productDelete)="deleteProduct($event)"
+                (productEdit)="editProduct($event)"
+                (productAddToBasket)="onAddToBasket($event)">
+                >
+              </app-products-card>
+            }
+          </div>
+        }
 
-<h1 class="classR">Хранилище продуктов</h1>
-<div class="btn">
-<button mat-raised-button (click)="openDialog()">Добавить продукт</button>
-<button mat-raised-button (click)="deleteAllProducts()" class="btnAlldel">Удалить все продкты</button>
-</div>
-<div class="list">
-  <ng-container *ngIf="isLoading$ | ngrxPush; else products ">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </ng-container>
-  <ng-template #products>
-    <ng-container *ngFor="let product of products$ | ngrxPush">
-      <app-products-card
-        [product]="product"
-        (productDelete)="deleteProduct($event)"
-        (productEdit)="editProduct($event)"
-        (productAddToBasket)="onAddToBasket($event)">
-        >
-      </app-products-card>
-    </ng-container>
-  </ng-template>
-</div>
+      </div>
+    </div>
+  </mat-drawer-content>
+
+  <!-- Боковая панель корзины -->
+  <mat-drawer #drawer mode="side" position="end" class="basket-drawer">
+    <app-basket-products></app-basket-products>
+  </mat-drawer>
+</mat-drawer-container>
+
+<!-- Кнопка для открытия корзины -->
+
