@@ -33,12 +33,12 @@ export class ProductsService {
       this.setState({error: null})
     });
   }
-  deleteProduct(product: Product) {
+  deleteProduct(product: Product): void {
 
     //  this.http.delete(API_URL + `products/${product.id}`).subscribe(() => this.getProducts() ) 1 способ
     // const products = this.products.value.filter(v => v.id !== product.id);
     // this.http.delete(API_URL + `products/${product.id}`).subscribe(() => this.products.next(products) ) 2 способ
-
+   // коменты оставим как варианты
     const products: Product[] = this.state.value.products.filter(v => v.id !== product.id)
 
     this.http.delete(API_URL + `products/${product.id}`).pipe(
@@ -46,18 +46,14 @@ export class ProductsService {
     ).subscribe()
   }
 
-  deleteAllProducts() {
-    this.setState({products:[]})
-  }
 
-
-  createProduct(newProduct: CreateProductModels) {
-    this.http.post<Product>(API_URL + 'products', newProduct).subscribe((product: Product) => {
+  createProduct(newProduct: CreateProductModels): void {
+    this.http.post<Product>(API_URL + 'products', newProduct).subscribe((product: Product): void => {
       this.setState({products:[...this.state.value.products,product]});
     })
   }
 
-  updateProduct(updatedProduct: Product, id: number) {
+  updateProduct(updatedProduct: Product, id: number): void {
     this.http.put<Product>(API_URL + `products/${id}`, updatedProduct)
       .subscribe((product) => {
         this.setState({products:[...this.state.value.products.map(p =>

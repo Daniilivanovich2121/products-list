@@ -30,59 +30,50 @@ import {MatSidenavModule} from '@angular/material/sidenav';
   styleUrl: './products-list.component.scss'
 })
 export class ProductsListComponent implements OnInit {
+  private readonly dialog = inject(MatDialog);
+  private readonly basketService = inject(BasketService);
+  private readonly store = inject(Store);
+  public readonly products$ = this.store.select(selectProducts)
+  public readonly error$ = this.store.select(selectProductsError)
+  public readonly isLoading$ = this.store.select(selectProductsStatus)
 
-    readonly dialog = inject(MatDialog);
-    private readonly basketService = inject(BasketService);
-    private readonly store = inject(Store);
-    public products$ = this.store.select(selectProducts)
-    public error$ = this.store.select(selectProductsError)
-    public isLoading$ = this.store.select(selectProductsStatus)
+  ngOnInit(): void {
+    this.init()
+  }
 
-    ngOnInit() {
-        this.init()
-    }
+  init(): void {
+    this.store.dispatch(getProducts())
+  }
 
-    init() {
-        this.store.dispatch(getProducts())
-    }
+  deleteProduct(product: Product): void {
+    this.store.dispatch(deleteProduct({id: product.id}))
+  }
 
-    deleteProduct(product: Product) {
-        this.store.dispatch(deleteProduct({id: product.id}))
-    }
+  onAddToBasket(product: Product): void {
+    this.basketService.addToBasket(product);
+  }
 
-    deleteAllProducts() {
-    }
+  openDialog(editableProduct?: Product,): void {
 
-    onAddToBasket(product: Product): void {
-        this.basketService.addToBasket(product);
-        // Можно заменить на красивый toast/snackbar
-        console.log(`${product.name} добавлен в корзину`);
-    }
+    const dialogRef = this.dialog.open(CreateProductsDialogComponent, {
+      width: '500px', height: '700px', data: editableProduct
+    })
+    dialogRef.afterClosed().subscribe((result: CreateProductModels):void => {
+      if (result) {
+        if (editableProduct) {
+          const upProduct: Product = {
+            ...editableProduct,
+            ...result,
+          }
+          this.store.dispatch(editProduct({product: upProduct}));
+        } else {
+          this.store.dispatch(createProduct({product: result}))
+        }
+      }
+    })
+  }
 
-
-    openDialog(editableProduct?: Product,) {
-
-        const dialogRef = this.dialog.open(CreateProductsDialogComponent, {
-            width: '500px', height: '700px', data: editableProduct
-        })
-        dialogRef.afterClosed().subscribe((result: CreateProductModels ) => {
-            if (result) {
-                if (editableProduct) {
-                    const upProduct: Product = {
-                        ...editableProduct,
-                        ...result,
-                    }
-                    console.log(upProduct);
-                    this.store.dispatch(editProduct({product: upProduct}));
-                } else {
-                    console.log("else");
-                    this.store.dispatch(createProduct({product: result }))
-                }
-            }
-        })
-    }
-
-    editProduct(editableProduct: Product) {
-        this.openDialog(editableProduct)
-    }
+  editProduct(editableProduct: Product): void {
+    this.openDialog(editableProduct)
+  }
 }

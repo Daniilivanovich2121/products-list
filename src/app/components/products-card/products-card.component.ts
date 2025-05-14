@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from '../../models/productModel';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
@@ -16,7 +16,6 @@ import {
   MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
-import {BasketService} from '../../services/basket.service';
 import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
@@ -43,23 +42,22 @@ import {MatTooltip} from '@angular/material/tooltip';
   templateUrl: './products-card.component.html',
   styleUrl: './products-card.component.scss'
 })
-export class ProductsCardComponent  implements OnInit {
+export class ProductsCardComponent {
   @Input() product!: Product;
   @Output() productDelete = new EventEmitter<Product>();
   @Output() productEdit = new EventEmitter<Product>();
   @Output() productAddToBasket = new EventEmitter<Product>();
 
-  ngOnInit() {
-  }
 
-  public deleteProduct(product: Product) {
+  public deleteProduct(product: Product): void {
     this.productDelete.emit(product);
   }
 
-  public editProduct(product: Product) {
+  public editProduct(product: Product): void {
     this.productEdit.emit(product);
   }
-  public addToBasket(product: Product) {
+
+  public addToBasket(product: Product): void {
     this.productAddToBasket.emit(product);
   }
 }
