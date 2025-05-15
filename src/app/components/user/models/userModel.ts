@@ -1,5 +1,5 @@
 export interface User {
-  id: 1,
+  id:number
   email: string,
   password: string,
   name: string,
@@ -7,5 +7,8 @@ export interface User {
   avatar: string[]
 }
 export interface  CreateUserModels {
-
+  name: string,
+  email: string,
+  password: string,
+  avatar: string[],
 }

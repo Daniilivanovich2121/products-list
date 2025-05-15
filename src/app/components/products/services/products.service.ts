@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {API_URL} from '../models/api-url';
+import {API_URL} from '../../../core/api-url';
 import {CreateProductModels, Product} from '../models/productModel';
 import {BehaviorSubject, catchError, EMPTY, finalize, tap} from 'rxjs';
 import {PRODUCTS_INITIAL_STATE, ProductsStateModel} from '../models/products-state.model';

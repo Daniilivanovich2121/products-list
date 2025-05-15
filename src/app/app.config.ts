@@ -6,8 +6,8 @@ import {provideHttpClient} from '@angular/common/http';
 import {provideState, provideStore} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
-import {productsReducer} from './store/products.reducer';
-import * as productsEffects from './store/products.effects';
+import {productsReducer} from './components/products/store/products.reducer';
+import * as productsEffects from './components/products/store/products.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes), provideHttpClient(), provideStore(), provideEffects(productsEffects), provideStoreDevtools({

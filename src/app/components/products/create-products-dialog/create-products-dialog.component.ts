@@ -4,7 +4,7 @@ import {MatInput,} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
 import {MatButton,} from '@angular/material/button';
-import {Product} from '../../models/productModel';
+import {Product} from '../models/productModel';
 import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({

@@ -5,7 +5,7 @@ import {Product} from '../models/productModel';
 @Injectable({
   providedIn: 'root'
 })
-export class BasketService {
+export class BasketProductsService {
   private basketItemsSubject = new BehaviorSubject<Product[]>([]);
   basketItems$ = this.basketItemsSubject.asObservable();
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Product} from '../../models/productModel';
+import {Product} from '../models/productModel';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {CommonModule} from '@angular/common';
@@ -17,6 +17,7 @@ import {
   MatCardTitle
 } from '@angular/material/card';
 import {MatTooltip} from '@angular/material/tooltip';
+import {User} from '../../user/models/userModel';
 
 @Component({
   selector: 'app-products-card',
@@ -47,6 +48,7 @@ export class ProductsCardComponent {
   @Output() productDelete = new EventEmitter<Product>();
   @Output() productEdit = new EventEmitter<Product>();
   @Output() productAddToBasket = new EventEmitter<Product>();
+
 
 
   public deleteProduct(product: Product): void {

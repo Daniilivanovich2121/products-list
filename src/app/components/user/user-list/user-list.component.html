@@ -1,0 +1,30 @@
+<div class="user-list-container">
+  <h1>Список пользователей</h1>
+
+  <ng-container *ngrxLet="{
+    users: users$,
+    error: error$,
+    isLoading: isLoading$
+  } as vm">
+
+    @if (vm.isLoading) {
+      <div class="loading-container">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+    } @else if (vm.error) {
+      <div class="error-container">
+        Произошла ошибка при загрузке пользователей
+      </div>
+    } @else {
+      <div class="users-grid">
+        @for (user of vm.users; track user.id) {
+          <app-user-card
+            [user]="user"
+            (userDelete)="deleteUser($event)"
+
+          ></app-user-card>
+        }
+      </div>
+    }
+  </ng-container>
+</div>

@@ -1,10 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {BasketService} from '../../services/basket.service';
+import {BasketProductsService} from '../services/basket-products.service';
 import {Store} from '@ngrx/store';
-import {selectProducts, selectProductsError, selectProductsStatus} from '../../store/products.selector';
-import {createProduct, deleteProduct, editProduct, getProducts} from '../../store/products.action';
-import {CreateProductModels, Product} from '../../models/productModel';
+import {selectProducts, selectProductsError, selectProductsStatus} from '../store/products.selector';
+import {createProduct, deleteProduct, editProduct, getProducts} from '../store/products.action';
+import {CreateProductModels, Product} from '../models/productModel';
 import {CreateProductsDialogComponent} from '../create-products-dialog/create-products-dialog.component';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton, MatFabButton} from '@angular/material/button';
@@ -29,9 +29,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
 })
-export class ProductsListComponent implements OnInit {
+export default class ProductsListComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
-  private readonly basketService = inject(BasketService);
+  private readonly basketService = inject(BasketProductsService);
   private readonly store = inject(Store);
   public readonly products$ = this.store.select(selectProducts)
   public readonly error$ = this.store.select(selectProductsError)

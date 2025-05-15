@@ -1,12 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CreateProductModels, Product} from '../models/productModel';
-import {API_URL} from '../models/api-url';
+import {API_URL} from '../../../core/api-url';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiProductsService {
 
   private readonly http = inject(HttpClient)
 

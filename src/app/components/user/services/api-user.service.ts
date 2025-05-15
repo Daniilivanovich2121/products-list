@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CreateProductModels, Product} from '../models/productModel';
-import {API_URL} from '../models/api-url';
+import {CreateProductModels, Product} from '../../products/models/productModel';
+import {API_URL} from '../../../core/api-url';
 import {User} from '../models/userModel';
 
 @Injectable({

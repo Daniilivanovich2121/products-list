@@ -1,6 +1,6 @@
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {inject} from '@angular/core';
-import {ApiService} from '../services/api.service';
+import {ApiProductsService} from '../services/api-products.service';
 import {
   createProduct, createProductFailure, createProductSuccess,
   deleteProduct, deleteProductFailure,
@@ -15,7 +15,7 @@ import {catchError, map, of, switchMap} from 'rxjs';
 export const getProductsEffects = createEffect(
   () => {
     const action$ = inject(Actions);
-    const apiService = inject(ApiService);
+    const apiService = inject(ApiProductsService);
 
     return action$.pipe(
       ofType(getProducts),
@@ -31,7 +31,7 @@ export const getProductsEffects = createEffect(
 export const deleteProductEffect = createEffect(
   () => {
     const actions$ = inject(Actions);
-    const apiService = inject(ApiService);
+    const apiService = inject(ApiProductsService);
 
     return actions$.pipe(
       ofType(deleteProduct),
@@ -48,7 +48,7 @@ export const deleteProductEffect = createEffect(
 export const createProductEffect = createEffect(
   () => {
     const actions$ = inject(Actions);
-    const apiService = inject(ApiService);
+    const apiService = inject(ApiProductsService);
 
     return actions$.pipe(
       ofType(createProduct),
@@ -66,7 +66,7 @@ export const createProductEffect = createEffect(
 export const editProductEffect = createEffect(
   () => {
     const actions$ = inject(Actions);
-    const apiService = inject(ApiService);
+    const apiService = inject(ApiProductsService);
 
     return actions$.pipe(
       ofType(editProduct),

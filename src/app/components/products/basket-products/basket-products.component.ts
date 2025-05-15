@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {BasketService} from '../../services/basket.service';
+import {BasketProductsService} from '../services/basket-products.service';
 import {AsyncPipe, CurrencyPipe, NgForOf, } from '@angular/common';
 import {MatCard,MatCardContent} from '@angular/material/card';
 
@@ -18,7 +18,7 @@ import {MatCard,MatCardContent} from '@angular/material/card';
 })
 export class BasketProductsComponent {
 
-  constructor(public basketService: BasketService) {
+  constructor(public basketService: BasketProductsService) {
 
   }
 
