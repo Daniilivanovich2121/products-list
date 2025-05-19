@@ -1,0 +1,50 @@
+<mat-dialog-content>
+  <form class="example-form"
+        [formGroup]="createUserForm">
+    <div class="input">
+      <mat-form-field class="example-full-width">
+        <mat-label>имя</mat-label>
+        <input  type="text" matInput formControlName="name"
+                placeholder="имя">
+        @if (createUserForm.controls['name'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>пароль</mat-label>
+        <input type="text" matInput formControlName="password"
+               placeholder="пароль">
+        @if (createUserForm.controls['password'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>email</mat-label>
+        <input type="email" matInput formControlName="email"
+               placeholder="email">
+        @if (createUserForm.controls['email'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>фото</mat-label>
+        <input type="text" matInput formControlName="avatar"
+               placeholder="фото">
+        @if (createUserForm.controls['avatar'].hasError('required')) {
+          <mat-error>это поле обязательно</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">закрыть</button>
+  <button mat-button (click)="onSubmit()" [disabled]="!createUserForm.valid" >создать</button>
+</mat-dialog-actions>
