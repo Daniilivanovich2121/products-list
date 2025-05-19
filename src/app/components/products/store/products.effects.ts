@@ -72,7 +72,7 @@ export const editProductEffect = createEffect(
       ofType(editProduct),
       switchMap(({ product }) =>
         apiService.updateProduct(product).pipe(
-          map((product) => editProductSuccess({ product: product})),
+          map((product) => editProductSuccess({ editableProduct: product})),
           catchError(error => of(editProductFailure({ error })))
         )
       )

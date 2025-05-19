@@ -30,7 +30,7 @@ export const createProductFailure = createAction('[Products] Create Product Fail
 
 export const editProduct = createAction('[Products] Create Product', props<{ product:Product }>());
 
-export const editProductSuccess = createAction('[Products] Create Product Success', props<{ product: Product }>());
+export const editProductSuccess = createAction('[Products] Create Product Success', props<{ editableProduct: Product }>());
 
 // Action при ошибке создания продукта
 export const editProductFailure = createAction('[Products] Create Product Failure', props<{ error: any }>());

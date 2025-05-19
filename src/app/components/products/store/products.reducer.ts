@@ -60,11 +60,11 @@ on(editProduct, (state) => ({
   ...state,
   isLoading: true,
 })),
-  on(editProductSuccess, (state, {product}) => ({
+  on(editProductSuccess, (state, {editableProduct}) => ({
     ...state,
     isLoading: false,
-    products: state.products.map(p =>
-      p.id === product.id ? product : p),
+    products: state.products.map(product =>
+      product.id === editableProduct.id ? editableProduct : product),
     error: null
   })),
   on(editProductFailure, (state, {error}) => ({

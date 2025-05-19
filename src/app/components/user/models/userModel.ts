@@ -4,11 +4,11 @@ export interface User {
   password: string,
   name: string,
   role: string,
-  avatar: string[]
+  avatar: string
 }
 export interface  CreateUserModels {
   name: string,
   email: string,
   password: string,
-  avatar: string[],
+  avatar: string,
 }

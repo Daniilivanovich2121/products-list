@@ -1,0 +1,29 @@
+<mat-card class="user-card">
+  <mat-card-header>
+    <div mat-card-avatar class="user-avatar">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+    <mat-card-title>ID: {{ user.id }}</mat-card-title>
+    <mat-card-subtitle>Пользователь</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="user-card-content">
+    <div class="user-field">
+      <strong>Имя:</strong>
+      <span>{{ user.name }}</span>
+    </div>
+    <div class="user-field">
+      <strong>Пароль:</strong>
+      <span class="password-field">{{ user.password }}</span>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-icon-button color="primary" (click)="editUser(user)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="deleteUser(user)">
+      <mat-icon >delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

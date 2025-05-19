@@ -1,5 +1,6 @@
 <div class="user-list-container">
   <h1>Список пользователей</h1>
+  <button mat-raised-button (click)="openCreateUserDialog()">Добавить пользователя</button>
 
   <ng-container *ngrxLet="{
     users: users$,
@@ -21,7 +22,7 @@
           <app-user-card
             [user]="user"
             (userDelete)="deleteUser($event)"
-
+            (editUserEvent)="editUser($event)"
           ></app-user-card>
         }
       </div>
