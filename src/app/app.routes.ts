@@ -9,5 +9,6 @@ export const routes: Routes = [
     path: 'users',
     loadComponent: () => import('./components/user/user-list/user-list.component')
 
-  }
+  },
+
 ];
